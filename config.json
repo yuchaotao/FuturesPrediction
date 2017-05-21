@@ -1,0 +1,5 @@
+{
+  "sequence_length":6,
+  "tick_size":20,
+  "feature_size":8
+}
