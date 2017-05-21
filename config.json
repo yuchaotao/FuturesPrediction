@@ -1,5 +1,15 @@
 {
-  "sequence_length":6,
-  "tick_size":20,
-  "feature_size":8
+    "sequence_length":60,
+    "tick_size":6,
+    "feature_size":8,
+    "batch_size": 128,
+    "dropout_keep_prob": 0.5,
+    "evaluate_every": 50,
+    "filter_sizes": "3,4,5",
+    "hidden_unit": 50,
+    "l2_reg_lambda": 0.1,
+    "max_pool_size": 4,
+    "non_static": false,
+    "num_epochs": 30,
+    "num_filters": 128
 }

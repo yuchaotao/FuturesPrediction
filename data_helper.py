@@ -3,6 +3,7 @@ import re
 import time
 import logging
 import numpy as np
+import pickle
 
 logging.getLogger().setLevel(logging.INFO)
 
@@ -26,7 +27,7 @@ def batch_iter(data, batch_size, num_epochs, shuffle=True):
 def load_data(filename):
   time_start = time.time()
   print('loading')
-  f = open(filename, 'r')
+  f = open(filename, 'rb')
   label_dict = {'up':np.array([1,0]), 'down':np.array([0,1])}
 
   import json
@@ -36,14 +37,7 @@ def load_data(filename):
  
   x = []
   y = []
-  while True:
-    l = f.readline()
-    if not l:
-      break
-    cnt += 1
-    #if cnt > 100000 :break
-    l = l.strip()
-    data = l.split(',')
+  for data in pickle.load(f):
     x.append(np.array(data[1:], dtype=np.float32).reshape([params['sequence_length'], params['tick_size']*params['feature_size']]))
     y.append(label_dict[data[0]])
   x = np.array(x, dtype=np.float32)
@@ -52,6 +46,8 @@ def load_data(filename):
   return x, y
 
 if __name__ == "__main__":
-  train_file = './data/training_data/train'
+  train_file = './data/training_data/train.dat'
   x,y = load_data(train_file)
+  print(x.shape)
+  print(np.sum(y==[1,0])/2)
   print(y[0], x[0])
